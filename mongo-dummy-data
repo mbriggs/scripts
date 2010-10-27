@@ -10,7 +10,7 @@ if ARGV.size < 2
 end
 
 collection = Mongo::Connection.new.db(ARGV[0]).collection(ARGV[1])
-if ARGV[3]
+unless ARGV[3]
   data = eval ARGV[3]
 else
   data = {:foo => 'bar'}

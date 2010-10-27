@@ -1,15 +1,29 @@
 #!/usr/bin/env ruby
 
- arr = []
- `grep -rn --color '#{ARGV[0]}' #{ARGV[1..-1].join(" ")}|grep -v swp`.each do     |l|
-   puts l
-   arr << [l.gsub(/:.*$/, "").strip, l.gsub(/^.*?:/, "").gsub(/:.*$/, "").strip]
- end
- 
- puts "------------------------\n\n" 
- 
- arr.each do |a| 
-   puts "opening #{a[0]} at #{a[1]}" 
-   `gvim #{a[0]} +#{a[1]}`
- end
+if ARGV.size < 2
+  puts 'grepfactor <search string> <location1>[ <location2> <location3>...]'
+  exit
+end
+
+lines = []
+puts 'grepping....'
+`grep -rn --color '#{ARGV[0]}' #{ARGV[1..-1].join(" ")}|grep -v swp`.each do |l|
+  if l =~ /:/
+    lines << {\
+      :path => l.split(':').first.strip,
+      :line_number => l.split(':')[1].strip}
+    puts "adding    #{l}"
+  else
+    puts "ignoring  #{l}"
+  end
+end
+
+puts "\n\n------------------------" 
+puts 'refactor time!'
+puts "------------------------\n\n" 
+
+lines.each do |line| 
+  puts "opening   #{line[:path]} at #{line[:line_number]}" 
+  `gvim #{line[:path]} +#{line[:line_number]}`
+end
 
