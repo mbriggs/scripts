@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+wget http://github.com/jashkenas/coffee-script/tarball/0.9.4
+tar xvfz 0.9.4
+cd jashkenas-coffee-script*
+sudo bin/cake install
+cd ..
+rm -rf jashkenas-coffee-script*
+rm 0.9.4
+
+

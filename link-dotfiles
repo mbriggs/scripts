@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+`ls ~/dotfiles`.split.each do |f|
+  to = File.expand_path("~/.#{f}")
+  from = File.expand_path("~/dotfiles/#{f}")
+  `ln -s #{from} #{to}` and puts 'Linked .#{f}' unless File.exists? to
+end
