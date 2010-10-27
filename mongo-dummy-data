@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'mongo'
+require 'bson'
+
+if ARGV.size < 2
+  puts "usage: mongo-dummy-data <db> <collection> [<dummy data>]\n\n"
+  exit 
+end
+
+collection = Mongo::Connection.new.db(ARGV[0]).collection(ARGV[1])
+data = (ARGV[3] && eval(ARGV[3])) || {:foo => 'bar'}
+
+1000000.times {collection.insert data}
