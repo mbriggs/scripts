@@ -17,4 +17,14 @@ else
   data = {:foo => 'bar'}
 end
 
-1000000.times {collection.insert(:foo => 'bar', :name => Faker::Name.name, :bs => Faker::Company.bs)}
+1000000.times {collection.insert(:foo => 'bar', 
+  :name => Faker::Name.name, 
+  :phone => Faker::PhoneNumber.phone_number,
+  :company => { :bs => Faker::Company.bs,
+                :name => Faker::Company.name,
+                :address => { :city => Faker::Address.city,
+                  :street => Faker::Address.street_name,
+                  :state => Faker::Address.us_state,
+                  :zip => Faker::Address.zip_code
+                }
+              })}
