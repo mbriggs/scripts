@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 wget http://github.com/jashkenas/coffee-script/tarball/0.9.4
 tar xvfz 0.9.4
