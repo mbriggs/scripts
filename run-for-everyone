@@ -8,6 +8,9 @@ File.readlines(File.expand_path '~/.ssh/config').each do |line|
 
   if team && line =~ /Host /
     host = line.split(' ').last
-    puts `echo ssh #{host} #{command}`
+
+    puts host
+    puts `ssh #{host} "#{command}"`
+    puts '---------------------'
   end
 end
