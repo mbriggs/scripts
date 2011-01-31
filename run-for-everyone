@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+command = ARGV.join(' ')
+team = false
+File.readlines(File.expand_path '~/.ssh/config').each do |line|
+  team = true if line =~ /team/
+  team = false if line =~ /servers/
+
+  if team && line =~ /Host /
+    host = line.split(' ').last
+    puts `echo ssh #{host} #{command}`
+  end
+end
