@@ -1,9 +1,11 @@
 #/usr/bin/bash
 
-wget http://nodejs.org/dist/node-v0.2.4.tar.gz
-tar xfvz node-v0.2.4.tar.gz
-cd node-v0.2.4
-./configure && make && sudo make install
+git clone git://github.com/ry/node.git
+cd node
+./configure --prefix=~/local
+make install
 cd ..
-rm -rf node-v0.2.4
-rm -f node-v0.2.4.tar.gz
+
+git clone git://github.com/isaacs/npm.git
+cd npm
+make install
