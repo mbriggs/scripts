@@ -1,0 +1,4 @@
+sudo apt-get install libncurses-dev libgnome2-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev libcairo2-dev libx11-dev libxpm-dev libxt-dev
+
+make clean
+./configure --with-features=huge --enable-perlinterp --enable-pythoninterp --enable-rubyinterp --enable-gui=gnome2 --disable-largefile --enable-luainterp && make && sudo make install
