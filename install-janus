@@ -1,0 +1,3 @@
+#!/bin/bash
+
+curl https://github.com/carlhuda/janus/raw/master/bootstrap.sh -o - | sh
