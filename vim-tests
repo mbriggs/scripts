@@ -1,3 +1,0 @@
-#!/usr/bin/bash
-
-tail -f /tmp/vim-test-log
