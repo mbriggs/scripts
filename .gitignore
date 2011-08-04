@@ -1,1 +1,3 @@
+vcprompt-src/**/*.o
+vcprompt-src/vcprompt
 vcprompt
