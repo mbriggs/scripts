@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+touch /tmp/vim.log && tail -f /tmp/vim.log
