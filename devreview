@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+if [[ -n $1 ]]; then
+  git log -m -p -1 `git log --pretty=oneline | egrep "Merge branch '${1}.*' into dev" | awk '{print $1}'`
+fi
