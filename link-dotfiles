@@ -5,3 +5,9 @@
   from = File.expand_path("~/dotfiles/#{f}")
   `ln -s #{from} #{to}` and puts "Linked .#{f}" unless File.exists?(to) || File.directory?(from)
 end
+
+`ls ~/dotfiles/config`.split.each do |f|
+  to = File.expand_path("~/.config/#{f}")
+  from = File.expand_path("~/dotfiles/config/#{f}")
+  `ln -s #{from} #{to}` and puts "Linked .config/#{f}" unless File.exists?(to)
+end
