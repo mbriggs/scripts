@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo apt-get install gcc-4.4 libstdc++6-4.4-dev
+CC=gcc-4.4 passenger start
