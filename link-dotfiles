@@ -11,3 +11,7 @@ end
   from = File.expand_path("~/dotfiles/config/#{f}")
   `ln -s #{from} #{to}` and puts "Linked .config/#{f}" unless File.exists?(to)
 end
+
+to = File.expand_path("~/.lein")
+from = File.expand_path("~/dotfiles/lein")
+`ln -s #{from} #{to}` and puts "Linked .lein" unless File.exists?(to)
