@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo openvpn /home/matt/Dropbox/vpn/client.conf

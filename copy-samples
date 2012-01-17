@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cp config/resque.yml.sample config/resque.yml
+cp config/amazon_s3.yml.sample config/amazon_s3.yml
+cp config/branding.yml.sample config/branding.yml
+cp config/hoptoad.yml.sample config/hoptoad.yml
+cp config/database.yml.sample config/database.yml
+cp config/newrelic.yml.sample config/newrelic.yml
