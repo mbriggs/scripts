@@ -1,5 +1,12 @@
 #!/usr/bin/env ruby
 
+def link(to, from, title)
+  to = File.expand_path(to)
+  from = File.expand_path(from)
+
+  `ln -s #{from} #{to}` and puts "Linked #{title}" unless File.exists?(to)
+end
+
 `ls ~/dotfiles`.split.each do |f|
   to = File.expand_path("~/.#{f}")
   from = File.expand_path("~/dotfiles/#{f}")
@@ -12,6 +19,7 @@ end
   `ln -s #{from} #{to}` and puts "Linked .config/#{f}" unless File.exists?(to)
 end
 
-to = File.expand_path("~/.lein")
-from = File.expand_path("~/dotfiles/lein")
-`ln -s #{from} #{to}` and puts "Linked .lein" unless File.exists?(to)
+link "~/.lein", "~/dotfiles/lein", ".lein"
+
+`mkdir -p ~/.passenger/standalone`
+link "~/.passenger/standalone/config", "~/dotfiles/passenger/standalone/config", "passenger config"
