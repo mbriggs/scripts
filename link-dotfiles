@@ -13,13 +13,17 @@ end
   `ln -s #{from} #{to}` and puts "Linked .#{f}" unless File.exists?(to) || File.directory?(from)
 end
 
+`ls ~/Dropbox/dotfiles`.split.each do |f|
+  link "~/.#{f}", File.expand_path("~/Dropbox/dotfiles/#{f}"), f
+end
+
 `ls ~/dotfiles/config`.split.each do |f|
   to = File.expand_path("~/.config/#{f}")
   from = File.expand_path("~/dotfiles/config/#{f}")
   `ln -s #{from} #{to}` and puts "Linked .config/#{f}" unless File.exists?(to)
 end
 
-link "~/.lein", "~/dotfiles/lein", ".lein"
 
 `mkdir -p ~/.passenger/standalone`
+link "~/.lein", "~/dotfiles/lein", ".lein"
 link "~/.passenger/standalone/config", "~/dotfiles/passenger/standalone/config", "passenger config"

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd
+mkdir Mail
+cd Mail
+mkdir drafts packman-errors personal queue sent spam tmp trash work
+cd
