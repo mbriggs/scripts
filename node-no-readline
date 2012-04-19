@@ -1,3 +1,4 @@
 #!/bin/bash
 
+PATH=$PATH:/usr/local/bin
 NODE_NO_READLINE=1 node
