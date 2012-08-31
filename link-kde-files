@@ -1,5 +1,0 @@
-#!/bin/env bash
-
-ln -s ~/Dropbox/kde-share/config ~/.kde/share/config
-ln -s ~/Dropbox/kde-share/icons ~/.kde/share/icons
-ln -s ~/Dropbox/kde-share/kde4 ~/.kde/share/kde4
