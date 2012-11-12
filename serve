@@ -1,9 +1,3 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env bash
 
-require 'webrick'
-include WEBrick
-
-WEBrick::HTTPServer.new(:Port => 9090, :DocumentRoot => Dir.pwd).tap do |server|
-  trap('INT') { server.shutdown }
-  server.start
-end
+anywhere 9090
