@@ -5,3 +5,4 @@ sudo npm install -g grunt
 sudo npm install -g jshint
 sudo npm install -g supervisor
 sudo npm install -g express
+sudo npm install -g buster
