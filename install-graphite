@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+
+# download and install xquartz https://xquartz.macosforge.org
+
+# so deps
+
+brew install cairo memcached
+
+
+
+# python deps
+
+sudo easy_install pip
+sudo pip install django
+sudo pip install django-tagging
+sudo pip install python-memcached
+sudo pip install txamqp
+sudo pip install pytz
+sudo pip install pyparsing
+
+
+# opt
+
+sudo mkdir /opt
+sudo chown `whoami` /opt
+mkdir /opt/graphite
+
+cd /opt
+
+
+# libs
+
+git clone https://github.com/graphite-project/graphite-web.git
+git clone https://github.com/graphite-project/carbon.git
+git clone https://github.com/graphite-project/whisper.git
+git clone https://github.com/graphite-project/ceres.git
+
+cd /opt/ceres
+sudo python setup.py install
+
+cd /opt/whisper
+sudo python setup.py install
+
+cd /opt/carbon
+python setup.py install
+
+cd /opt/graphite-web
+./check-dependencies.py
+python setup.py install
+cd webapp
+mkdir -p ../storage/log/webapp 
+python manage.py syncdb
+
+cd /opt/graphite/conf
+cp aggregation-rules.conf.example aggregation-rules.conf
+cp carbon.conf.example carbon.conf
+cp dashboard.conf.example dashboard.conf
+cp graphTemplates.conf.example graphTemplates.conf
+cp relay-rules.conf.example relay-rules.conf
+cp rewrite-rules.conf.example rewrite-rules.conf
+cp storage-aggregation.conf.example storage-aggregation.conf
+cp storage-schemas.conf.example storage-schemas.conf
+cp graphite.wsgi.example graphite.wsgi
+
+cd /opt/graphite
+
+mkdir -p storage/log/carbon-cache 
+
+./bin/carbon-cache.py –debug start
+
+./bin/run-graphite-devel-server.py .
