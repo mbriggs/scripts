@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+case ARGV[0]
+when 'disable'
+  `sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist`
+  `sudo mdutil -a -i off`
+  puts 'spotlight disabled'
+when 'enable'
+  `sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist`
+  `sudo mdutil -a -i on`
+  puts 'spotlight enabled'
+else
+  puts 'usage: spotlight-ctrl COMMAND'
+  puts 'COMMAND can be enable to enable spotlight, or disable to disable it'
+end
