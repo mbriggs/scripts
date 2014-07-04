@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-if [[ -n $1 ]]; then
-  git log --pretty=oneline | egrep "Merge branch '${1}.*' into (dev|release|icg)" | awk '{print $1}'
-fi

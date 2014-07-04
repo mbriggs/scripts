@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+open -a /usr/local/Cellar/emacs/HEAD/Emacs.app --args --debug-init

@@ -1,6 +1,0 @@
-#!/bin/bash
-
-for file in $(ls *.sample)
-do
-  cp -f $file ${file%.sample}
-done

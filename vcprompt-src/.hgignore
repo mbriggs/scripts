@@ -1,5 +1,0 @@
-~$
-\.o$
-^vcprompt$
-
-^tests/\w+-repo(\.tar)?$
