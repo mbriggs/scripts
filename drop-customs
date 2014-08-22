@@ -1,0 +1,70 @@
+#!/usr/bin/env ruby
+
+require 'mysql2'
+require 'moped'
+
+sql = Mysql2::Client.new(host: 'localhost',
+                         username: 'root',
+                         database: 'spree_development')
+
+mongo = Moped::Session.new(['127.0.0.1:27017'])
+mongo.use 'image_server_development'
+
+bad = 0
+good = 0
+
+get_artwork = ->(key) do
+  mongo[:image_server_artworks]
+    .find(scaled_key: key)
+    .to_a
+    .first
+end
+
+get_product = ->(id) do
+  sql.query("SELECT * FROM spree_products WHERE id = #{id.to_i}").to_a.first
+end
+
+def is_a_number?(str)
+  str =~ /^\d+$/
+end
+
+remove = ->(path) do
+  bad = bad + 1
+  File.delete(path)
+end
+
+Dir['/var/www/static/permanent/scaled_Artwork/*'].each do |image|
+  artwork = get_artwork.call(File.basename image)
+
+  if !artwork
+    remove.call image
+    next
+  end
+
+  if artwork['volatile']
+    remove.call image
+    next
+  end
+
+  if !is_a_number? artwork['artwork_id']
+    remove.call image
+    next
+  end
+
+  product = get_product.call(artwork['artwork_id'])
+
+  if !product
+    remove.call image
+    next
+  end
+
+  if product['custom'] == 1
+    remove.call image
+    next
+  end
+
+  good = good + 1
+end
+
+p "BAD: #{bad}"
+p "GOOD: #{good}"

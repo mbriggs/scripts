@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require 'mysql2'
+require 'moped'
+
+sql = Mysql2::Client.new(host: 'localhost',
+                         username: 'root',
+                         database: 'spree_development')
+
+mongo = Moped::Session.new(['127.0.0.1:27017'])
+mongo.use 'image_server_development'
+
+mongo[:image_server_wraps].drop
+mongo[:image_server_aspect_ratios].drop
+
+mongo[:image_server_artworks].find.each do |art|
+  unless art['volatile']
+    product = sql.query("SELECT id FROM spree_products WHERE id = #{art['artwork_id']}").to_a.first
+  end
+
+  unless product
+    mongo[:image_server_artworks].find(_id: art['_id']).remove
+    begin
+      File.delete("/var/www/static/permanent/scaled_Artwork/#{art['scaled_key']}")
+    rescue
+    end
+  end
+end
